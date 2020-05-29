@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   
+    <link rel="stylesheet" href="../public/stylesheets/style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="../js/script.js"></script>
+    <title>question</title>
+  </head>
+  <body>
+      
+
+    <div class="blank"></div>
+
+    <aside>
+    <form action="/question" method="post" class="form-message">
+               
+                 
+                  <input type="text" name="service"  id="name" class="form-message-input" placeholder="nom de service"  required>
+                  <br>
+                
+                  
+                  <input type="text" name="client"  id="name" class="form-message-input" placeholder="nom de client" required>
+                 <br>
+                
+             
+                  
+                  <input type="text" name="question" id="name" class="form-message-input" placeholder="question" required>
+                  <br>
+               
+              <button class="btn btn-registre" type="submit">ajoute un question</button>
+            </form>
+             <div>
+               </aside>
+               <div class="blank"></div>
+               <!-- end asid  -->
+               <h1 id="titre-officiel">
+                voire les qustions par service
+              </h1>
+              <div class="blank"></div>
+              <div class="form-message">
+              
+                <select  id="sel" onchange="text()">
+              
+                  <option value="select services" selected>select services</option>
+                  
+                  <%for(i in json) {%>
+                    <option value="<%= json[i].service%>"><%= json[i].service%></option>
+                    <%}%>
+    
+                </select>
+                <div id="con" style="color: #fff;"></div>
+             </div>
+             <div class="blank"></div>
+
+
+<script>
+  var di = document.getElementById("con");
+ var cc = document.getElementById("sel");
+
+
+
+function text() {
+    
+     var g = cc.value;
+  
+     
+    
+    fetch('../que.json')
+  .then(response => {
+    return response.json()
+  })
+  .then(data => {
+      
+      for (var i = 0; i < data.length; i++) {
+        if(data[i].service == g){
+            
+
+              var x = di.innerHTML = data[i].question;
+      
+              break;
+
+            }     
+           
+      }
+
+    
+  })
+  .catch(err => {
+  })
+
+
+  
+}
+</script>
+
+
+           
+
+  </body>
+</html>
